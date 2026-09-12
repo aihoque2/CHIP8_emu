@@ -12,7 +12,6 @@ public:
     void decode();
     void execute();
     void ReadRom(std::string filename);
-    void StreamROM();
 
 private:
     char** filename_;
