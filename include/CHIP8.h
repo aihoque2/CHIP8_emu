@@ -8,10 +8,12 @@ class CHIP8{
 
 public:
     CHIP8();
+    ~CHIP8();
     void fetch();
     void decode();
     void execute();
     void ReadRom(std::string filename);
+    void PrintRom(); // call this after READROM;
 
 private:
     char** filename_;
@@ -25,6 +27,7 @@ private:
     uint8_t keypad[16]{};
     uint32_t video[64 * 32]{};
     uint16_t opcode;
+    FILE* file; //file to open?
 };
 
 #endif

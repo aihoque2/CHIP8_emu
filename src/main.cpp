@@ -16,6 +16,8 @@ int main(int argc, char** argv){
 	char const* romFilename = argv[3];
 
     CHIP8 chip8;
+    chip8.ReadRom("../pong_1_player.ch8");
+    chip8.PrintRom();
 
     return 0;
 }
