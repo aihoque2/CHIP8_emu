@@ -14,6 +14,7 @@ class CHIP8{
 
 public:
     CHIP8();
+    CHIP8(std::string filename);
     ~CHIP8();
     void fetch();
     void decode();

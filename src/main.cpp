@@ -18,8 +18,7 @@ int main(int argc, char** argv){
 	int cycleDelay = std::stoi(argv[2]);
 	char const* romFilename = argv[3];
 
-    CHIP8 chip8;
-    chip8.SetRom("../pong_1_player.ch8");
+    CHIP8 chip8("../pong_1_player.ch8");
     chip8.PrintRom();
 
     return 0;
