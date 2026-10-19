@@ -4,10 +4,11 @@ main.cpp
 this is what is used to run the emulator.
 */
 #include <iostream>
+#include "CHIP8.h"
 
 int main(int argc, char** argv){
     if (argc != 4 ){
-            stderr << "Usage: " << argv[0] << " <Scale> <Delay> <ROM>\n";
+            std::cout << "Usage: " << argv[0] << " <Scale> <Delay> <ROM>\n";
     		std::exit(EXIT_FAILURE);
     }
 

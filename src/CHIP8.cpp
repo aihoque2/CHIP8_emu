@@ -1,6 +1,9 @@
 #include "CHIP8.h"
-#include <stdio.h>
-#include <stdlib.h>
+
+
+CHIP8::CHIP8(){
+
+}
 
 void CHIP8::ReadRom(std::string filename){
     /*
@@ -8,27 +11,28 @@ void CHIP8::ReadRom(std::string filename){
 
     */
 
-    file = fopen(filename);
+    file = fopen(filename.c_str(), "r");
 
     // 2. Always check if the file opened successfully
     if (file == NULL) {
         perror("Error opening file");
-        return EXIT_FAILURE;
+        std::exit(EXIT_FAILURE);
     }
+
+
 }
 
 void CHIP8::PrintRom(){
     if (file == NULL) {
-        stderr << "Function PrintRom() has no filename  <Scale> <Delay> <ROM>\n";
-        return EXIT_FAILURE;
+        perror("Function PrintRom() has no filename\n");
+        std::exit(EXIT_FAILURE);
     }
 
-
-    unint8_t byte;
+    int byte;
     while ((byte = fgetc(file)) != EOF) {
         
         // Print character safely (substitute non-printables with a dot)
-        char display_char = (byte >= 32 && byte <= 126) ? (char)byte : '.';
+        char display_char = (byte >= 32 && byte <= 126) ? static_cast<char>(byte) : '.';
         
         // Print Hexadecimal representation and character representation
         printf("Hex: 0x%02X | Char: %c\n", byte, display_char);
