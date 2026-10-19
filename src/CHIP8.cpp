@@ -1,11 +1,18 @@
 #include "CHIP8.h"
 
 
-CHIP8::CHIP8(){
+CHIP8::CHIP8(std::string filename){
+    pc = 0x200;
+    SetRom(filename);
+
+    /*
+    read through ROM file and
+    load it into memory()
+    */
 
 }
 
-void CHIP8::ReadRom(std::string filename){
+void CHIP8::SetRom(std::string filename){
     /*
     read and stream the ROM
 

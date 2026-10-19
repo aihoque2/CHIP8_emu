@@ -18,8 +18,8 @@ public:
     void fetch();
     void decode();
     void execute();
-    void ReadRom(std::string filename);
-    void PrintRom(); // call this after READROM;
+    void SetRom(std::string filename);
+    void PrintRom(); // call this after SetRom();
 
 private:
     char** filename_;

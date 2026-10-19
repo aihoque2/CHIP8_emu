@@ -6,6 +6,8 @@ this is what is used to run the emulator.
 #include <iostream>
 #include "CHIP8.h"
 
+// to run just do this for now: ./main 1 1 ../pong_1_player.ch8
+
 int main(int argc, char** argv){
     if (argc != 4 ){
             std::cout << "Usage: " << argv[0] << " <Scale> <Delay> <ROM>\n";
@@ -17,7 +19,7 @@ int main(int argc, char** argv){
 	char const* romFilename = argv[3];
 
     CHIP8 chip8;
-    chip8.ReadRom("../pong_1_player.ch8");
+    chip8.SetRom("../pong_1_player.ch8");
     chip8.PrintRom();
 
     return 0;
