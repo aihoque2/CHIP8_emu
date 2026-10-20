@@ -7,7 +7,6 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <stdlib.h>
-
 #define SCALE 15
 
 class CHIP8{
@@ -19,11 +18,11 @@ public:
     void fetch();
     void decode();
     void execute();
-    void SetRom(std::string filename);
+    void ReadRom(std::string filename);
     void PrintRom(); // call this after SetRom();
 
 private:
-    char** filename_;
+    const char* filename_;
     void** registers[16]{}; // 16 registers (8-bit each)
     uint16_t index; // the index register (16 bits)
     uint8_t memory[4096]{};
@@ -31,10 +30,17 @@ private:
     uint16_t stack[16]{}; // 64-byte stack
 	uint8_t sp{};
 	uint8_t delayTimer{};
+    uint16_t opcode;
+
+    // check for size of filename
+    size_t romSize{};
+
+    //frontend 
     uint8_t keypad[16]{};
     uint32_t video[SCALE * 64 * 32]{};
-    uint16_t opcode;
-    FILE* file; //file to open?
+
+
+    int scale;
 };
 
 #endif

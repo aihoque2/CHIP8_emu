@@ -3,7 +3,7 @@
 
 CHIP8::CHIP8(std::string filename){
     pc = 0x200;
-    SetRom(filename);
+    ReadRom(filename);
 
     /*
     read through ROM file and
@@ -12,13 +12,13 @@ CHIP8::CHIP8(std::string filename){
 
 }
 
-void CHIP8::SetRom(std::string filename){
+void CHIP8::ReadRom(std::string filename){
     /*
-    read and stream the ROM
+    read the ROM and load it into memory
 
     */
-
-    file = fopen(filename.c_str(), "r");
+    filename_=filename.c_str();
+    FILE* file = fopen(filename_, "r");
 
     // 2. Always check if the file opened successfully
     if (file == NULL) {
@@ -26,30 +26,47 @@ void CHIP8::SetRom(std::string filename){
         std::exit(EXIT_FAILURE);
     }
 
-
-}
-
-void CHIP8::PrintRom(){
-    if (file == NULL) {
-        perror("Function PrintRom() has no filename\n");
-        std::exit(EXIT_FAILURE);
-    }
-
     int byte;
     while ((byte = fgetc(file)) != EOF) {
         
+        // error check first then write to memory
+        if (pc > 0xFFF){ // what if the ROM exceeds the size
+            perror("Error in SetRom(): file size too big");
+            std::exit(EXIT_FAILURE);
+        }
+
+        memory[pc] = static_cast<uint8_t>(byte);
+        pc++;
+        romSize++;
+    }
+    
+    pc = 0x200;
+}
+
+void CHIP8::PrintRom(){
+
+    // print rom from memory
+
+    int address = 0x200;
+
+    if (memory[address] == 0x200) {
+        perror("PrintRom(): CHIP8 has not loaded memory\n");
+        std::exit(EXIT_FAILURE);
+    }
+
+    while (address <= pc+romSize) {
+        
+        uint8_t byte = memory[address];
         // Print character safely (substitute non-printables with a dot)
         char display_char = (byte >= 32 && byte <= 126) ? static_cast<char>(byte) : '.';
         
         // Print Hexadecimal representation and character representation
         printf("Hex: 0x%02X | Char: %c\n", byte, display_char);
-
+        address++;
     }
 }
 
 CHIP8::~CHIP8(){
-    // Close the file handle to free resources
-    fclose(file);
 }
 
 
